@@ -1,4 +1,4 @@
-//bookmarklet code:      javascript:(function () {var script = document.createElement('script');script.id="packageInjector";script.src="https://grajkogj.github.io/webPackageInjector.github.io/injector.js";document.body.appendChild(script);}()) 
+//bookmarklet code:      javascript:(function () {var script = document.createElement('script');script.id="packageInjectorShell";script.src="https://grajkogj.github.io/webPackageInjector.github.io/injector.js";document.body.appendChild(script);}()) 
 //command dev code: (copy and paste all the code below into the console to get the final result)
 
 
