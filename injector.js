@@ -43,6 +43,7 @@ function inject() {
                 script.id = "injected-script";
                 script.innerHTML = content;
                 document.body.appendChild(script);
+                checkInjection();
                 if(document.getElementById("injected-script")) {
                         feedback.innerHTML = "Injection Successfull!"
                 } else {
@@ -53,6 +54,7 @@ function inject() {
                 div.id = "injected-div";
                 div.innerHTML = content;
                 document.body.appendChild(div);
+                checkInjection();
                 if(document.getElementById("injected-div")) {
                         feedback.innerHTML = "Injection Successfull!"
                 } else {
@@ -70,6 +72,24 @@ function inject() {
 
 
 
+function checkInjection() {
+        if(document.getElementById("injected-div").innerHTML == "undefined") {
+                document.getElementById("injected-div").remove();
+                setTimeout(
+                        function() {
+                                inject();
+                        },100
+                );
+        };
+        if(document.getElementById("injected-script").innerHTML == "undefined") {
+                document.getElementById("injected-script").remove();
+                setTimeout(
+                        function() {
+                                inject();
+                        },100
+                );
+        };
+};
 
 
 
