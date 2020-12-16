@@ -2,7 +2,7 @@
 //command dev code: (copy and paste all the code below into the console to get the final result)
 
 
-var injectorUI = '<div id="packageInjector"> <script src="injector.js"></script> <div id="injectorStyles"> <style> #packageInjector { width: 450px; min-height: 250px; position: absolute; top: 20px; left: 20px; z-index: 9999; border-radius: 5px; background:rgb(80, 80, 80); border: solid; border-width: 5px; border-color: rgb(0, 151, 238); } #packageInjector-header { background: rgb(0, 151, 238); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; width: 100%; height: 50px; } #closeInjectorButton { color: white; font-size: 40px; background-color: red; outline: none; border: none; border-radius: 5px; width: 50px; height: 50px; display: inline-block; } #closeInjectorButton:hover { cursor: pointer; background-color:rgb(184, 35, 35) } #packageInjector-body { background:rgb(80, 80, 80); width: 100%; height: 100%; border-radius: 5px; display: grid; place-items: center; } #injectorTitle { display: inline-block; font-family: Arial, Helvetica, sans-serif; color: #FFF; } #uploadedFile { color: #FFF; display: inline-block; } [injector-spacer] { height: 30px; } #inject-button { color: white; font-size: 40px; background-color: rgb(0, 151, 238); outline: none; border: none; border-radius: 5px; min-width: 50px; height: 50px; display: inline-block; } #inject-button:hover { cursor: pointer; background-color:rgb(41, 124, 172); } </style> </div> <div id="packageInjector-header"> <button id="closeInjectorButton" onclick="killInjector()"> X </button> <h3 id="injectorTitle"> Enjin Injector </h3> <p style="display:inline-block;font-size: 16px; color:white;"> Created by Gavin Grajkowski </p> </div> <div id="packageInjector-body"> <div injector-spacer></div> <input type="file" id="uploadedFile"> <div injector-spacer></div> <div style="color: #FFF;"> <input name="type" type="radio" id="isPackageCheck"> HTML Package <input name="type" type="radio" id="isScriptCheck"> Script Package <input name="type" type="radio" id="isStyleCheck"> Style Package </div> <div injector-spacer></div> <input type="button" id="inject-button" onclick="inject()" value="Inject"> <p id="injector-feedback" style="color: white;"> Waiting to inject </p> <div injector-spacer></div> </div></div>';
+var injectorUI = '<div id="packageInjector"> <script src="injector.js"></script> <div id="injectorStyles"> <style> #packageInjector { width: 450px; min-height: 250px; position: absolute; top: 20px; left: 20px; z-index: 9999; border-radius: 5px; background:rgb(80, 80, 80); border: solid; border-width: 5px; border-color: rgb(0, 151, 238); } #packageInjector-header { background: rgb(0, 151, 238); border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; width: 100%; height: 50px; } #closeInjectorButton { color: white; font-size: 40px; background-color: red; outline: none; border: none; border-radius: 5px; width: 50px; height: 50px; display: inline-block; } #closeInjectorButton:hover { cursor: pointer; background-color:rgb(184, 35, 35) } #packageInjector-body { background:rgb(80, 80, 80); width: 100%; height: 100%; border-radius: 5px; display: grid; place-items: center; } #injectorTitle { display: inline-block; font-family: Arial, Helvetica, sans-serif; color: #FFF; } #uploadedFile { color: #FFF; display: inline-block; } [injector-spacer] { height: 30px; } #inject-button { color: white; font-size: 40px; background-color: rgb(0, 151, 238); outline: none; border: none; border-radius: 5px; min-width: 50px; height: 50px; display: inline-block; } #inject-button:hover { cursor: pointer; background-color:rgb(41, 124, 172); } #inject-button { color: white; font-size: 40px; background-color: rgb(0, 151, 238); outline: none; border: none; border-radius: 5px; min-width: 50px; height: 50px; display: inline-block; } #inject-button:hover { cursor: pointer; background-color:rgb(41, 124, 172); } </style> </div> <div id="packageInjector-header"> <button id="closeInjectorButton" onclick="killInjector()"> X </button> <h3 id="injectorTitle"> Enjin Injector </h3> <p style="display:inline-block;font-size: 16px; color:white;"> Created by Gavin Grajkowski </p> </div> <div id="packageInjector-body"> <div injector-spacer></div> <input type="file" id="uploadedFile"> <div injector-spacer></div> <div style="color: #FFF;"> <input name="type" type="radio" id="isPackageCheck"> HTML Package <input name="type" type="radio" id="isScriptCheck"> Script Package <input name="type" type="radio" id="isStyleCheck"> Style Package <br> <input name="type" type="radio" id="isSiteCheck"> Page Overwrite Package </div> <div injector-spacer></div> <input type="button" id="inject-button" onclick="inject()" value="Inject"> <p id="injector-feedback" style="color: white;"> Waiting to inject </p> <div injector-spacer></div> </div></div>';
 
 function launchInjector() {
         if(document.getElementById("packageInjector")) {return;} else {
@@ -45,8 +45,9 @@ function injectCompiled() {
         let s = document.getElementById("isScriptCheck");
         let h = document.getElementById("isPackageCheck");
         let t = document.getElementById("isStyleCheck");
+        let o = document.getElementById("isSiteCheck");
         
-        if(s.checked == true && h.checked == false && t.checked == false) {
+        if(s.checked == true && h.checked == false && t.checked == false && o.checked == false) {
                 script = document.createElement('script');
                 script.id = "injected-script";
                 script.innerHTML = content;
@@ -56,7 +57,7 @@ function injectCompiled() {
                 } else {
                         feedback.innerHTML = "Injection encountered an unexpected error. Please try again."
                 };
-        } else if(h.checked == true && s.checked == false && t.checked == false) {
+        } else if(h.checked == true && s.checked == false && t.checked == false && o.checked == false) {
                 div = document.createElement('div');
                 div.id = "injected-div";
                 div.innerHTML = content;
@@ -66,7 +67,7 @@ function injectCompiled() {
                 } else {
                         feedback.innerHTML = "Injection encountered an unexpected error. Please try again."
                 };
-        } else if(t.checked == true && h.checked == false && s.checked == false) {
+        } else if(t.checked == true && h.checked == false && s.checked == false && o.checked == false) {
                 style = document.createElement('style');
                 style.id = "injected-style";
                 style.innerHTML = content + 
@@ -76,7 +77,9 @@ function injectCompiled() {
                 } else {
                         feedback.innerHTML = "Injection encountered an unexpected error. Please try again."
                 };
-        } else if(h.checked == false && s.checked == false && t.checked == false) {
+        } else if(t.checked == false && h.checked == false && s.checked == false && o.checked == true) {
+                document.write(content)
+        } else if(h.checked == false && s.checked == false && t.checked == false && o.checked == false) {
                 feedback.innerHTML = "Please select a package type before injecting.";
         } else {
                 feedback.innerHTML = "Please select a .enj or .txt pagkage file to inject."
